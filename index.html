@@ -18,7 +18,7 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
   </head>
   <body>
     <div class="container-fluid header">
@@ -29,15 +29,15 @@
             <div class="col-sm-4 col-4  btn-wrapper">
                 <div class="card">
                   <div class="card-body">Search for a City:</div>
-                  <form>
+                  <form class="form">
                     <div class="form-group">
                       <input type="text" class="search-input" id="searchInput" />
                     </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" id="searchBtn" class="btn btn-primary">Search</button>
                   </form>
                 </div>
                 <div class="card">
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
+                  <!-- <button type="button" class="btn btn-secondary btn-lg btn-block">
                     City
                   </button>
                   <button type="button" class="btn btn-secondary btn-lg btn-block">
@@ -60,15 +60,15 @@
                   </button>
                   <button type="button" class="btn btn-secondary btn-lg btn-block">
                     City
-                  </button>
+                  </button> -->
                 </div>
               </div>
               <div class="col-sm-8 col-8 justify-content-end card-wrapper">
                 <div class="d-flex justify-content-end card">
-                  <div class="card-body">This is some text within a card body.</div>
+                  <div class="card-body" id="current-weather"></div>
                 </div>
                 <div class="d-flex justify-content-end card">
-                  <div class="card-body">This is some text within a card body.</div>
+                  <div class="card-body" id="forecast"></div>
                 </div>
               </div>
         </div>
@@ -88,6 +88,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script src="./assets/script.js"></script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
