@@ -1,9 +1,9 @@
 let eventHandler = () => {
   let searchButtonEl = document.getElementById("searchBtn");
-  searchButtonEl.addEventListener("click", renderForecastData);
+  searchButtonEl.addEventListener("click", getSearchInput);
 };
 
-let renderForecastData = (e) => {
+let getSearchInput = (e) => {
   e.preventDefault();
   let cityName = document.getElementById("searchInput").value;
   console.log(cityName);
@@ -14,7 +14,7 @@ let renderForecastData = (e) => {
 getCoordinates = (cityName) => {
   let currentWeatherEl = document.getElementById("current-weather");
   fetch(
-    `api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=585ba3d2e5d78c9afea8cfd73fcf8a69`
+    `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=585ba3d2e5d78c9afea8cfd73fcf8a69`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -24,8 +24,10 @@ getCoordinates = (cityName) => {
           "<h3>No results found, try another search.</h3>";
         return;
       }
-      let lon = data.coord.lon;
-      let lat = data.coord.lat;
+      console.log(data);
+      let lon = data.city.coord.lon;
+      let lat = data.city.coord.lat;
+      console.log(lon, lat);
       getWeatherResults(lon, lat);
     });
 };
@@ -35,7 +37,15 @@ getWeatherResults = (lon, lat) => {
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=585ba3d2e5d78c9afea8cfd73fcf8a69`
   )
     .then((response) => response.json())
-    .then((data) => {});
+    .then((data) => {
+        console.log(data);
+      let tempVal = data.current.temp;
+      let humidityVal = data.current.humidity;
+      let uniVal = data.current.uvi;
+      let windspeedVal = data.current.wind_speed;
+      let iconVal = data.current.weather[0].icon;
+      console.log(tempVal, humidityVal, uniVal, windspeedVal, iconVal);
+    });
 };
 
 eventHandler();
