@@ -17,8 +17,8 @@ let eventHandler = () => {
 
 let getSearchInput = (e) => {
   e.preventDefault();
-
-  let cityName = document.getElementById("searchInput").value;
+  let cityNameEl = document.getElementById("searchInput");
+  let cityName = cityNameEl.value;
   if (cityName == "" || cityName == null) {
     return;
   }
@@ -35,6 +35,7 @@ let getSearchInput = (e) => {
     localStorage.setItem("SearchedCities", JSON.stringify(cities));
     getCoordinates(cityName);
   }
+  cityNameEl.value = "";
 };
 
 let renderSearchBtn = (cityName) => {
@@ -53,13 +54,11 @@ let getCoordinates = (cityName) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      //Needs to be fixed
       if (data.cod != null && data.cod == "404") {
         let noResultsMsg = document.createElement("h3");
-        //I defined currentWeatherEl in 2 different functions to avoid a global variable.
-        //Wonder what's a better approach?
         let currentWeatherEl = document.getElementById("current-weather");
         currentWeatherEl.append(noResultsMsg);
+        currentWeatherEl.style.display = block;
         noResultsMsg.textContent = "No results found, try another search.";
         return;
       }
@@ -84,8 +83,6 @@ let getWeatherResults = (resultsObj) => {
       resultsObj.uvi = data.current.uvi;
       resultsObj.windspeedVal = data.current.wind_speed;
       resultsObj.iconVal = data.current.weather[0].icon;
-      //icon returns as string. use this url to append to html:
-      //http://openweathermap.org/img/wn/{icon code}@2x.png
       getForecastResults(resultsObj, data);
     });
 };
@@ -103,12 +100,19 @@ let getForecastResults = (resultsObj, data) => {
     forecast.iconVal = data.daily[i].weather[0].icon;
     resultsObj.forecastResults.push(forecast);
   }
-  console.log(resultsObj);
+  //   console.log(forecastResults);
   renderCurrentResults(resultsObj);
+  renderForecastResults(resultsObj.forecastResults);
 };
 
 let renderCurrentResults = (resultsObj) => {
+  let currentWrapperEl = document.getElementById("current-wrapper");
+  let historyEl = document.getElementById("search-history");
   let cityAndDateEl = document.getElementById("name-date");
+  let tempEl = document.getElementById("temp");
+  let humidityEl = document.getElementById("humidity");
+  let uviEl = document.getElementById("uvi");
+  let windspeedEl = document.getElementById("windspeed");
   cityAndDateEl.innerHTML = `${
     resultsObj.cityName
   } (${new Date().toLocaleDateString(
@@ -116,7 +120,43 @@ let renderCurrentResults = (resultsObj) => {
   )}) <img src='http://openweathermap.org/img/wn/${
     resultsObj.iconVal
   }@2x.png' />`;
-  cityAndDateEl.append(p);
+  currentWrapperEl.style.display = "block";
+  historyEl.style.display = "block";
+  tempEl.textContent = `Temp: ${resultsObj.tempVal}`;
+  windspeedEl.textContent = `Wind: ${resultsObj.windspeedVal}`;
+  humidityEl.textContent = `Humidity: ${resultsObj.humidityVal}`;
+  uviEl.textContent = `UV Index: ${resultsObj.uvi}`;
+};
+
+let renderForecastResults = (forecast) => {
+  for (let i = 0; i < 5; i++) {
+    let dailyObj = {};
+    dailyObj.date = forecast[i].date;
+    dailyObj.tempVal = forecast[i].tempVal;
+    dailyObj.humidityVal = forecast[i].humidityVal;
+    dailyObj.windspeedVal = forecast[i].windspeedVal;
+    dailyObj.iconVal = forecast[i].iconVal;
+    console.log(dailyObj);
+    let forecastEl = document.getElementById("forecast");
+    let createCard = document.createElement("div");
+    createCard.setAttribute("class", "card-body");
+    forecastEl.append(createCard);
+    let createTitle = document.createElement("h5");
+    createTitle.setAttribute("class", "card-title");
+    createCard.append(createTitle);
+    let createSubtitle = document.createElement("h6");
+    createSubtitle.setAttribute("class", "card-subtitle mb-2");
+    createCard.append(createSubtitle);
+    let createPara1 = document.createElement("p");
+    createPara1.setAttribute("id", "dailyTemp");
+    createCard.append(createPara1);
+    let createPara2 = document.createElement("p");
+    createPara2.setAttribute("id", "dailyWind");
+    createCard.append(createPara2);
+    let createPara3 = document.createElement("p");
+    createPara3.setAttribute("id", "dailyHumidity");
+    createCard.append(createPara3);
+  }
 };
 eventHandler();
 initSearchButtons();
