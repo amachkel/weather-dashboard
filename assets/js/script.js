@@ -55,8 +55,12 @@ let getCoordinates = (cityName) => {
     .then((data) => {
       //Needs to be fixed
       if (data.cod != null && data.cod == "404") {
-        currentWeatherEl.innerHTML =
-          "<h3>No results found, try another search.</h3>";
+        let noResultsMsg = document.createElement("h3");
+        //I defined currentWeatherEl in 2 different functions to avoid a global variable.
+        //Wonder what's a better approach?
+        let currentWeatherEl = document.getElementById("current-weather");
+        currentWeatherEl.append(noResultsMsg);
+        noResultsMsg.textContent = "No results found, try another search.";
         return;
       }
       let resultsObj = {};
@@ -75,7 +79,6 @@ let getWeatherResults = (resultsObj) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       resultsObj.tempVal = data.current.temp;
       resultsObj.humidityVal = data.current.humidity;
       resultsObj.uvi = data.current.uvi;
@@ -83,8 +86,6 @@ let getWeatherResults = (resultsObj) => {
       resultsObj.iconVal = data.current.weather[0].icon;
       //icon returns as string. use this url to append to html:
       //http://openweathermap.org/img/wn/{icon code}@2x.png
-      console.log(resultsObj);
-
       getForecastResults(resultsObj, data);
     });
 };
@@ -103,10 +104,19 @@ let getForecastResults = (resultsObj, data) => {
     resultsObj.forecastResults.push(forecast);
   }
   console.log(resultsObj);
+  renderCurrentResults(resultsObj);
 };
 
-let renderResults = (resultsObj) => {
-    
-}
+let renderCurrentResults = (resultsObj) => {
+  let cityAndDateEl = document.getElementById("name-date");
+  cityAndDateEl.innerHTML = `${
+    resultsObj.cityName
+  } (${new Date().toLocaleDateString(
+    "en-US"
+  )}) <img src='http://openweathermap.org/img/wn/${
+    resultsObj.iconVal
+  }@2x.png' />`;
+  cityAndDateEl.append(p);
+};
 eventHandler();
 initSearchButtons();
