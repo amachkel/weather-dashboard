@@ -25,53 +25,30 @@
       <h1>Weather Dashboard</h1>
     </div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-4 col-4  btn-wrapper">
-                <div class="card">
-                  <div class="card-body">Search for a City:</div>
-                  <form class="form">
-                    <div class="form-group">
-                      <input type="text" class="search-input" id="searchInput" />
-                    </div>
-                    <button type="submit" id="searchBtn" class="btn btn-primary">Search</button>
-                  </form>
-                </div>
-                <div class="card" id="search-history">
-                  <!-- <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-lg btn-block">
-                    City
-                  </button> -->
-                </div>
+      <div class="row">
+        <div class="col-sm-4 col-4 btn-wrapper">
+          <div class="card">
+            <div class="card-body">Search for a City:</div>
+            <form class="form">
+              <div class="form-group">
+                <input type="text" class="search-input" id="searchInput" />
               </div>
-              <div class="col-sm-8 col-8 justify-content-end card-wrapper">
-                <div class="d-flex justify-content-end card">
-                  <div class="card-body" id="current-weather"></div>
-                </div>
-                <div class="d-flex justify-content-end card">
-                  <div class="card-body" id="forecast"></div>
-                </div>
-              </div>
+              <button type="submit" id="searchBtn" class="btn btn-primary">
+                Search
+              </button>
+            </form>
+          </div>
+          <div class="card" id="search-history"></div>
         </div>
+        <div class="col-sm-8 col-8 justify-content-end card-wrapper">
+          <div class="d-flex justify-content-end card">
+            <div class="card-body" id="current-weather"></div>
+          </div>
+          <div class="d-flex justify-content-end card">
+            <div class="card-body" id="forecast"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
