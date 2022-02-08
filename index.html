@@ -24,9 +24,9 @@
     <div class="container-fluid header">
       <h1>Weather Dashboard</h1>
     </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-4 col-4 btn-wrapper">
+    <div class="container-fluid row flex-nowrap">
+      <!-- <div class="row"> -->
+        <div class="col-sm-2 btn-wrapper">
           <div class="card">
             <div class="card-body">Search for a City:</div>
             <form class="form">
@@ -40,23 +40,23 @@
           </div>
           <div class="card" id="search-history"></div>
         </div>
-        <div class="col-sm-8 col-8 card-wrapper" id="current-wrapper">
-          <div class="d-flex justify-content-end card">
-            <div class="card-body" id="current-weather">
-              <h3 id="name-date"></h3>
-              <p id="temp"></p>
-              <p id="windspeed"></p>
-              <p id="humidity"></p>
-              <p id="uvi"></p>
+        <div id="weather-wrapper"class="col-sm-10">
+          <div class="card-wrapper" id="current-wrapper">
+            <div class="d-flex justify-content-end card">
+              <div class="card-body" id="current-weather">
+                <h3 id="name-date"></h3>
+                <p id="temp"></p>
+                <p id="windspeed"></p>
+                <p id="humidity"></p>
+                <p id="uvi"></p>
+              </div>
             </div>
           </div>
+          <!-- <div class="col-sm-9 card-wrapper" id="forecast-wrapper"> -->
+            <div class="row flex-nowrap card-body justify-content-end" id="forecast"></div>
+          <!-- </div> -->
         </div>
-        <div class="col-sm-8 col-8 card-wrapper" id="forecast-wrapper">
-          <div class="d-flex card">
-            <div class="card-body" id="forecast"></div>
-          </div>
-        </div>
-      </div>
+      <!-- </div> -->
     </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

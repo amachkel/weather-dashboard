@@ -54,11 +54,12 @@ let getCoordinates = (cityName) => {
   )
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (data.cod != null && data.cod == "404") {
         let noResultsMsg = document.createElement("h3");
         let currentWeatherEl = document.getElementById("current-weather");
         currentWeatherEl.append(noResultsMsg);
-        currentWeatherEl.style.display = block;
+        currentWeatherEl.style.display = "block";
         noResultsMsg.textContent = "No results found, try another search.";
         return;
       }
@@ -139,7 +140,8 @@ let renderForecastResults = (forecast) => {
     console.log(dailyObj);
     let forecastEl = document.getElementById("forecast");
     let createCard = document.createElement("div");
-    createCard.setAttribute("class", "card-body");
+    createCard.setAttribute("class", "card card-body");
+    createCard.style.display = "flex";
     forecastEl.append(createCard);
     let createTitle = document.createElement("h5");
     createTitle.setAttribute("class", "card-title");
@@ -156,6 +158,13 @@ let renderForecastResults = (forecast) => {
     let createPara3 = document.createElement("p");
     createPara3.setAttribute("id", "dailyHumidity");
     createCard.append(createPara3);
+    createTitle.textContent = dailyObj.date;
+    createSubtitle.innerHTML = `<img src='http://openweathermap.org/img/wn/${dailyObj.iconVal}@2x.png' />`;
+    createPara1.textContent = `Temp: ${dailyObj.tempVal}`;
+    createPara2.textContent = `Wind: ${dailyObj.windspeedVal}`;
+    createPara3.textContent = `Humidity: ${dailyObj.humidityVal}`;
+    // let forecastWrapperEl = document.getElementById("forecast-wrapper");
+    // forecastWrapperEl.style.display = "flex";
   }
 };
 eventHandler();
