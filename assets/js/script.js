@@ -55,20 +55,25 @@ let getCoordinates = (cityName) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+
       if (data.cod != null && data.cod == "404") {
-        let noResultsMsg = document.createElement("h3");
-        let currentWeatherEl = document.getElementById("current-weather");
-        currentWeatherEl.append(noResultsMsg);
-        currentWeatherEl.style.display = "block";
-        noResultsMsg.textContent = "No results found, try another search.";
+        handleErrorMsg("No results found, try another search.");
         return;
       }
+      handleErrorMsg("");
       let resultsObj = {};
       resultsObj.cityName = cityName;
       resultsObj.lon = data.city.coord.lon;
       resultsObj.lat = data.city.coord.lat;
       getWeatherResults(resultsObj);
     });
+};
+
+let handleErrorMsg = (message) => {
+  let currentWrapperEl = document.getElementById("current-wrapper");
+  let errorMsgEl = document.getElementById("errorMsg");
+  currentWrapperEl.style.display = "block";
+  errorMsgEl.textContent = message;
 };
 
 let getWeatherResults = (resultsObj) => {
@@ -130,6 +135,8 @@ let renderCurrentResults = (resultsObj) => {
 };
 
 let renderForecastResults = (forecast) => {
+  let forecastEl = document.getElementById("forecast");
+  forecastEl.innerHTML = "";
   for (let i = 0; i < 5; i++) {
     let dailyObj = {};
     dailyObj.date = forecast[i].date;
@@ -138,7 +145,6 @@ let renderForecastResults = (forecast) => {
     dailyObj.windspeedVal = forecast[i].windspeedVal;
     dailyObj.iconVal = forecast[i].iconVal;
     console.log(dailyObj);
-    let forecastEl = document.getElementById("forecast");
     let createCard = document.createElement("div");
     createCard.setAttribute("class", "card card-body");
     createCard.style.display = "flex";
