@@ -15,7 +15,7 @@ let eventHandler = () => {
   searchButtonEl.addEventListener("click", getSearchInput);
 };
 
-let getSearchInput = (e) => {
+let getSearchInput = (e, shouldRenderBtn = true) => {
   e.preventDefault();
   let cityNameEl = document.getElementById("searchInput");
   let cityName = cityNameEl.value;
@@ -29,23 +29,27 @@ let getSearchInput = (e) => {
     cities = JSON.parse(localStorageCities);
   }
 
-  if (!cities.includes(cityName)) {
+  if (!cities.includes(cityName) && shouldRenderBtn) {
     cities.push(cityName);
     renderSearchBtn(cityName);
     localStorage.setItem("SearchedCities", JSON.stringify(cities));
-    getCoordinates(cityName);
   }
   cityNameEl.value = "";
+  getCoordinates(cityName);
 };
 
 let renderSearchBtn = (cityName) => {
   let searchHistoryEl = document.getElementById("search-history");
   let searchHistoryBtn = document.createElement("button");
   searchHistoryBtn.textContent = cityName;
-
   searchHistoryBtn.classList.add("btn", "btn-secondary", "btn-lg", "btn-block");
-
   searchHistoryEl.append(searchHistoryBtn);
+  searchHistoryBtn.addEventListener("click", function (e) {
+    let cityNameEl = document.getElementById("searchInput");
+    cityNameEl.value = e.target.textContent;
+    console.log(cityNameEl.value);
+    getSearchInput(e, false);
+  });
 };
 
 let getCoordinates = (cityName) => {
