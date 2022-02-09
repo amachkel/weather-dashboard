@@ -1,7 +1,7 @@
 :root {
-  --bg-color: #d1e3dd;
-  --light-blue: #6e7dab;
-  --dark-blue: #001998;
+  --bg-color: #e3f8fd;
+  --light-blue: #8EE3F5;
+  --dark-blue: #007bff;
 }
 body {
   background-color: var(--bg-color);
@@ -31,36 +31,27 @@ body {
 h1 {
   font-size: 3.5rem;
   color: white;
-}
-
-.container-fluid {
-  padding: 0px;
+  box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.75);
 }
 
 p {
   font-size: 16px;
 }
 
+#weather-wrapper,
+.container-fluid,
 .btn-wrapper,
 .card-wrapper {
   padding: 0px;
 }
 
-#search-history {
-    display: none;
-}
-
-#weather-wrapper {
-  padding: 0px;
-}
-
+#search-history,
 .card-wrapper {
   display: none;
 }
 
 #forecast.card {
-  margin:1rem;
-  /* width: 18rem; */
+  margin: 1rem;
 }
 
 .card {
@@ -68,6 +59,7 @@ p {
   margin: 1rem;
   border: none;
   border: 2px solid var(---bg-color);
+  box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.75);
 }
 .card-body {
   font-size: 31px;
@@ -75,8 +67,6 @@ p {
   padding: 5px;
   margin: 0px 5px;
 }
-
-
 
 #current-weather {
   width: 60vw;

@@ -173,8 +173,6 @@ let renderForecastResults = (forecast) => {
     createPara1.textContent = `Temp: ${dailyObj.tempVal}`;
     createPara2.textContent = `Wind: ${dailyObj.windspeedVal}`;
     createPara3.textContent = `Humidity: ${dailyObj.humidityVal}`;
-    // let forecastWrapperEl = document.getElementById("forecast-wrapper");
-    // forecastWrapperEl.style.display = "flex";
   }
 };
 eventHandler();
