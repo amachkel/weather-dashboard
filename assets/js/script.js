@@ -132,6 +132,7 @@ let renderCurrentResults = (resultsObj) => {
   let tempEl = document.getElementById("temp");
   let humidityEl = document.getElementById("humidity");
   let uviEl = document.getElementById("uvi");
+  let uviColor = document.getElementById("uviColor");
   let windspeedEl = document.getElementById("windspeed");
   cityAndDateEl.innerHTML = `${
     resultsObj.cityName
@@ -146,22 +147,22 @@ let renderCurrentResults = (resultsObj) => {
   tempEl.textContent = `Temp: ${resultsObj.tempVal}`;
   windspeedEl.textContent = `Wind: ${resultsObj.windspeedVal}`;
   humidityEl.textContent = `Humidity: ${resultsObj.humidityVal}`;
-  uviEl.textContent = `UV Index: ${resultsObj.uvi}`;
-
-  colorCodeUvi(resultsObj.uvi, uviEl);
+  uviEl.textContent = "UV Index: ";
+  uviColor.textContent = ` ${resultsObj.uvi} `;
+  colorCodeUvi(resultsObj.uvi, uviColor);
 };
 
-let colorCodeUvi = (uvi, uviEl) => {
+let colorCodeUvi = (uvi, uviColor) => {
   if (uvi <= 2) {
-    uviEl.style.background = "#008000";
+    uviColor.style.background = "#008000";
   } else if (uvi <= 5) {
-    uviEl.style.background = "#ffff00";
+    uviColor.style.background = "#ffff00";
   } else if (uvi <= 7) {
-    uviEl.style.background = "#df8000";
+    uviColor.style.background = "#df8000";
   } else if (uvi <= 10) {
-    uviEl.style.background = "#df4000";
+    uviColor.style.background = "#df4000";
   } else {
-    uviEl.style.background = "#c05fc0";
+    uviColor.style.background = "#c05fc0";
   }
 };
 

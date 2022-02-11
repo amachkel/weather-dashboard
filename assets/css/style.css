@@ -1,6 +1,6 @@
 :root {
   --bg-color: #e3f8fd;
-  --light-blue: #8EE3F5;
+  --light-blue: #8ee3f5;
   --dark-blue: #007bff;
 }
 body {
@@ -31,11 +31,20 @@ body {
 h1 {
   font-size: 3.5rem;
   color: white;
-  box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.75);
+}
+
+#humidity {
+  margin-bottom: 0;
 }
 
 #uvi {
+  display:inline-block;
+}
+#uviColor {
   display: inline-block;
+  font-size: 16px;
+  padding: 0px 5px;
 }
 
 p {
@@ -63,7 +72,7 @@ p {
   margin: 1rem;
   border: none;
   border: 2px solid var(---bg-color);
-  box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.75);
 }
 .card-body {
   font-size: 31px;
