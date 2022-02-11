@@ -1,3 +1,4 @@
+//checks each city that's searched and stored in localStorage, then calls renderSearchBtn with the cities array
 let initSearchButtons = () => {
   let localStorageCities = localStorage.getItem("SearchedCities");
   let cities = [];
@@ -9,12 +10,13 @@ let initSearchButtons = () => {
     renderSearchBtn(cities[i]);
   }
 };
-
+//search button calls getSearchInput()
 let eventHandler = () => {
   let searchButtonEl = document.getElementById("searchBtn");
   searchButtonEl.addEventListener("click", getSearchInput);
 };
 
+//shouldRenderBtn is a parameter given a default value of true.
 let getSearchInput = (e, shouldRenderBtn = true) => {
   e.preventDefault();
   let cityNameEl = document.getElementById("searchInput");
@@ -28,16 +30,18 @@ let getSearchInput = (e, shouldRenderBtn = true) => {
   if (localStorageCities != null) {
     cities = JSON.parse(localStorageCities);
   }
-
+//if cities array doesn't include city name and param is true,
   if (!cities.includes(cityName) && shouldRenderBtn) {
+    //push new cityName to cities array
     cities.push(cityName);
     renderSearchBtn(cityName);
     localStorage.setItem("SearchedCities", JSON.stringify(cities));
   }
+  //clears input field after value is gotten
   cityNameEl.value = "";
   getCoordinates(cityName);
 };
-
+//creates search history buttons with the city name as its text
 let renderSearchBtn = (cityName) => {
   let searchHistoryEl = document.getElementById("search-history");
   let searchHistoryBtn = document.createElement("button");
@@ -47,11 +51,12 @@ let renderSearchBtn = (cityName) => {
   searchHistoryBtn.addEventListener("click", function (e) {
     let cityNameEl = document.getElementById("searchInput");
     cityNameEl.value = e.target.textContent;
-    console.log(cityNameEl.value);
+    // console.log(cityNameEl.value);
+    //calls function and gives shouldRenderBtn a value of false so duplicate buttons aren't made.
     getSearchInput(e, false);
   });
 };
-
+//gets coordinates for city name and passes results in object to 
 let getCoordinates = (cityName) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=585ba3d2e5d78c9afea8cfd73fcf8a69`
@@ -59,16 +64,20 @@ let getCoordinates = (cityName) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-
+//error that appears in console when search yields no results
       if (data.cod != null && data.cod == "404") {
+        //calls error message function with string as param
         handleErrorMsg("No results found, try another search.");
         return;
       }
+      //clears error message
       handleErrorMsg("");
+      //object contains city name, lon/lat values
       let resultsObj = {};
       resultsObj.cityName = cityName;
       resultsObj.lon = data.city.coord.lon;
       resultsObj.lat = data.city.coord.lat;
+      //calls function and passes object as param
       getWeatherResults(resultsObj);
     });
 };
@@ -93,6 +102,7 @@ let getWeatherResults = (resultsObj) => {
       resultsObj.uvi = data.current.uvi;
       resultsObj.windspeedVal = data.current.wind_speed;
       resultsObj.iconVal = data.current.weather[0].icon;
+      //passes data and results object to function
       getForecastResults(resultsObj, data);
     });
 };
@@ -130,6 +140,7 @@ let renderCurrentResults = (resultsObj) => {
   )}) <img src='http://openweathermap.org/img/wn/${
     resultsObj.iconVal
   }@2x.png' />`;
+  //changes elements' displays to make visible
   currentWrapperEl.style.display = "block";
   historyEl.style.display = "block";
   tempEl.textContent = `Temp: ${resultsObj.tempVal}`;
@@ -142,6 +153,7 @@ let renderForecastResults = (forecast) => {
   let forecastEl = document.getElementById("forecast");
   forecastEl.innerHTML = "";
   for (let i = 0; i < 5; i++) {
+    //all of this was painful. There has to be a better way.
     let dailyObj = {};
     dailyObj.date = forecast[i].date;
     dailyObj.tempVal = forecast[i].tempVal;
