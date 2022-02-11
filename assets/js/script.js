@@ -30,7 +30,7 @@ let getSearchInput = (e, shouldRenderBtn = true) => {
   if (localStorageCities != null) {
     cities = JSON.parse(localStorageCities);
   }
-//if cities array doesn't include city name and param is true,
+  //if cities array doesn't include city name and param is true,
   if (!cities.includes(cityName) && shouldRenderBtn) {
     //push new cityName to cities array
     cities.push(cityName);
@@ -56,7 +56,7 @@ let renderSearchBtn = (cityName) => {
     getSearchInput(e, false);
   });
 };
-//gets coordinates for city name and passes results in object to 
+//gets coordinates for city name and passes results in object to
 let getCoordinates = (cityName) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=585ba3d2e5d78c9afea8cfd73fcf8a69`
@@ -64,7 +64,7 @@ let getCoordinates = (cityName) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-//error that appears in console when search yields no results
+      //error that appears in console when search yields no results
       if (data.cod != null && data.cod == "404") {
         //calls error message function with string as param
         handleErrorMsg("No results found, try another search.");
@@ -147,6 +147,22 @@ let renderCurrentResults = (resultsObj) => {
   windspeedEl.textContent = `Wind: ${resultsObj.windspeedVal}`;
   humidityEl.textContent = `Humidity: ${resultsObj.humidityVal}`;
   uviEl.textContent = `UV Index: ${resultsObj.uvi}`;
+
+  colorCodeUvi(resultsObj.uvi, uviEl);
+};
+
+let colorCodeUvi = (uvi, uviEl) => {
+  if (uvi <= 2) {
+    uviEl.style.background = "#008000";
+  } else if (uvi <= 5) {
+    uviEl.style.background = "#ffff00";
+  } else if (uvi <= 7) {
+    uviEl.style.background = "#df8000";
+  } else if (uvi <= 10) {
+    uviEl.style.background = "#df4000";
+  } else {
+    uviEl.style.background = "#c05fc0";
+  }
 };
 
 let renderForecastResults = (forecast) => {

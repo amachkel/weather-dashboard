@@ -34,6 +34,10 @@ h1 {
   box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.75);
 }
 
+#uvi {
+  display: inline-block;
+}
+
 p {
   font-size: 16px;
 }
