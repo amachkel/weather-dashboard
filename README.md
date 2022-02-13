@@ -10,8 +10,7 @@ When the user searches for a city, current and future data for that city is fetc
 
 ## A Screenshot of the Deployed Site
 
-
-![weather-dashboard](https://user-images.githubusercontent.com/84882398/153681941-eaa77971-6f1e-40a5-a9e6-904cc6548405.png)
+![weatherDashboard](https://user-images.githubusercontent.com/84882398/153767124-ebefde21-06fa-499d-a578-50572bbef7f9.png)
 
 
 ## Check it out:
