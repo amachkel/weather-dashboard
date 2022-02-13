@@ -14,6 +14,13 @@ let initSearchButtons = () => {
 let eventHandler = () => {
   let searchButtonEl = document.getElementById("searchBtn");
   searchButtonEl.addEventListener("click", getSearchInput);
+
+  let clearBtnEl = document.getElementById("clearBtn");
+  clearBtnEl.addEventListener("click", function() {
+    localStorage.clear();
+    let searchHistoryEl = document.getElementById("search-history");
+    searchButtonEl.value = "";
+  })
 };
 
 //shouldRenderBtn is a parameter given a default value of true.
@@ -56,6 +63,7 @@ let renderSearchBtn = (cityName) => {
     getSearchInput(e, false);
   });
 };
+
 //gets coordinates for city name and passes results in object to
 let getCoordinates = (cityName) => {
   fetch(
