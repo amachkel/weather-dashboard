@@ -11,6 +11,10 @@ body {
   margin: 1rem 0rem;
 }
 
+.col {
+  max-width: none;
+}
+
 .header {
   padding: 1rem;
   font-size: 3rem;
@@ -33,7 +37,9 @@ h1 {
   color: white;
   box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.75);
 }
-
+h3, h5 {
+font-size: 1.5rem;
+}
 #humidity {
   margin-bottom: 0;
 }
@@ -43,12 +49,12 @@ h1 {
 }
 #uviColor {
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 0px 5px;
 }
 
 p {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 #weather-wrapper,
@@ -75,7 +81,7 @@ p {
   box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.75);
 }
 .card-body {
-  font-size: 31px;
+  font-size: 1.5rem;
   font-weight: 500;
   padding: 5px;
   margin: 0px 5px;
@@ -95,5 +101,14 @@ p {
 }
 
 .btn-primary {
-  font-size: 20px;
+  font-size: 1.25rem;
+}
+
+@media screen and (min-width: 1140px) {
+  #forecast {
+    flex-flow: row nowrap;
+  }
+  h3, h5 {
+    /* font-size: 1.25rem; */
+  }
 }
