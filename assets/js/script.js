@@ -18,7 +18,6 @@ let eventHandler = () => {
   let clearBtnEl = document.getElementById("clearBtn");
   clearBtnEl.addEventListener("click", function() {
     localStorage.clear();
-    let searchHistoryEl = document.getElementById("search-history");
     searchButtonEl.value = "";
   })
 };
