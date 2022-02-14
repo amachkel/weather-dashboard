@@ -145,7 +145,7 @@ let renderCurrentResults = (resultsObj) => {
     resultsObj.cityName
   } (${new Date().toLocaleDateString(
     "en-US"
-  )}) <img src='http://openweathermap.org/img/wn/${
+  )}) <img src='https://openweathermap.org/img/wn/${
     resultsObj.iconVal
   }@2x.png' />`;
   //changes elements' displays to make visible

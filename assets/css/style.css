@@ -89,7 +89,7 @@ p {
 
 #current-weather {
   width: 60vw;
-  max-height: 34vh;
+  max-height: 50vh;
 }
 
 .search-input,
@@ -107,8 +107,5 @@ p {
 @media screen and (min-width: 1140px) {
   #forecast {
     flex-flow: row nowrap;
-  }
-  h3, h5 {
-    /* font-size: 1.25rem; */
   }
 }
