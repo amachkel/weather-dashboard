@@ -12,21 +12,21 @@ let initSearchButtons = () => {
 };
 //search button calls getSearchInput()
 let eventHandler = () => {
-  let searchButtonEl = document.getElementById("searchBtn");
-  searchButtonEl.addEventListener("click", getSearchInput);
+  let searchButtonEl = $("#searchBtn");
+  searchButtonEl.click(getSearchInput);
 
-  let clearBtnEl = document.getElementById("clearBtn");
-  clearBtnEl.addEventListener("click", function() {
+  let clearBtnEl = $("#clearBtn");
+  clearBtnEl.click(function () {
     localStorage.clear();
-    searchButtonEl.value = "";
-  })
+    searchButtonEl.val("");
+  });
 };
 
 //shouldRenderBtn is a parameter given a default value of true.
 let getSearchInput = (e, shouldRenderBtn = true) => {
   e.preventDefault();
-  let cityNameEl = document.getElementById("searchInput");
-  let cityName = cityNameEl.value;
+  let cityNameEl = $("#searchInput");
+  let cityName = cityNameEl.val();
   if (cityName == "" || cityName == null) {
     return;
   }
@@ -44,19 +44,19 @@ let getSearchInput = (e, shouldRenderBtn = true) => {
     localStorage.setItem("SearchedCities", JSON.stringify(cities));
   }
   //clears input field after value is gotten
-  cityNameEl.value = "";
+  cityNameEl.val("");
   getCoordinates(cityName);
 };
 //creates search history buttons with the city name as its text
 let renderSearchBtn = (cityName) => {
-  let searchHistoryEl = document.getElementById("search-history");
-  let searchHistoryBtn = document.createElement("button");
-  searchHistoryBtn.textContent = cityName;
-  searchHistoryBtn.classList.add("btn", "btn-secondary", "btn-lg", "btn-block");
+  let searchHistoryEl = $("#search-history");
+  let searchHistoryBtn = $("<button>");
+  searchHistoryBtn.text(cityName);
+  searchHistoryBtn.addClass("btn btn-secondary btn-lg btn-block");
   searchHistoryEl.append(searchHistoryBtn);
-  searchHistoryBtn.addEventListener("click", function (e) {
-    let cityNameEl = document.getElementById("searchInput");
-    cityNameEl.value = e.target.textContent;
+  searchHistoryBtn.click(function (e) {
+    let cityNameEl = $("#searchInput");
+    cityNameEl.val(e.target.textContent);
     // console.log(cityNameEl.value);
     //calls function and gives shouldRenderBtn a value of false so duplicate buttons aren't made.
     getSearchInput(e, false);
@@ -90,9 +90,9 @@ let getCoordinates = (cityName) => {
 };
 
 let handleErrorMsg = (message) => {
-  let currentWrapperEl = document.getElementById("current-wrapper");
-  let errorMsgEl = document.getElementById("errorMsg");
-  currentWrapperEl.style.display = "block";
+  let currentWrapperEl = $("#current-wrapper");
+  let errorMsgEl = $("#errorMsg");
+  currentWrapperEl.css("display", "block");
   errorMsgEl.textContent = message;
 };
 
@@ -133,51 +133,50 @@ let getForecastResults = (resultsObj, data) => {
 };
 
 let renderCurrentResults = (resultsObj) => {
-  let currentWrapperEl = document.getElementById("current-wrapper");
-  let historyEl = document.getElementById("search-history");
-  let cityAndDateEl = document.getElementById("name-date");
-  let tempEl = document.getElementById("temp");
-  let humidityEl = document.getElementById("humidity");
-  let uviEl = document.getElementById("uvi");
-  let uviColor = document.getElementById("uviColor");
-  let windspeedEl = document.getElementById("windspeed");
-  cityAndDateEl.innerHTML = `${
-    resultsObj.cityName
-  } (${new Date().toLocaleDateString(
-    "en-US"
-  )}) <img src='https://openweathermap.org/img/wn/${
-    resultsObj.iconVal
-  }@2x.png' />`;
+  let currentWrapperEl = $("#current-wrapper");
+  let historyEl = $("#search-history");
+  let cityAndDateEl = $("#name-date");
+  let tempEl = $("#temp");
+  let humidityEl = $("#humidity");
+  let uviEl = $("#uvi");
+  let uviColor = $("#uviColor");
+  let windspeedEl = $("#windspeed");
+  cityAndDateEl.html(
+    `${resultsObj.cityName} (${new Date().toLocaleDateString(
+      "en-US"
+    )}) <img src='https://openweathermap.org/img/wn/${
+      resultsObj.iconVal
+    }@2x.png' />`
+  );
   //changes elements' displays to make visible
-  currentWrapperEl.style.display = "block";
-  historyEl.style.display = "block";
-  tempEl.textContent = `Temp: ${resultsObj.tempVal}`;
-  windspeedEl.textContent = `Wind: ${resultsObj.windspeedVal}`;
-  humidityEl.textContent = `Humidity: ${resultsObj.humidityVal}`;
-  uviEl.textContent = "UV Index: ";
-  uviColor.textContent = ` ${resultsObj.uvi} `;
+  currentWrapperEl.css("display", "block");
+  historyEl.css("display", "block");
+  tempEl.text(`Temp: ${resultsObj.tempVal}`);
+  windspeedEl.text(`Wind: ${resultsObj.windspeedVal}`);
+  humidityEl.text(`Humidity: ${resultsObj.humidityVal}`);
+  uviEl.text("UV Index: ");
+  uviColor.text(` ${resultsObj.uvi} `);
   colorCodeUvi(resultsObj.uvi, uviColor);
 };
 
 let colorCodeUvi = (uvi, uviColor) => {
   if (uvi <= 2) {
-    uviColor.style.background = "#008000";
+    uviColor.css("background", "#008000");
   } else if (uvi <= 5) {
-    uviColor.style.background = "#ffff00";
+    uviColor.css("background", "#ffff00");
   } else if (uvi <= 7) {
-    uviColor.style.background = "#df8000";
+    uviColor.css("background", "#df8000");
   } else if (uvi <= 10) {
-    uviColor.style.background = "#df4000";
+    uviColor.css("background", "#df4000");
   } else {
-    uviColor.style.background = "#c05fc0";
+    uviColor.css("background", "#c05fc0");
   }
 };
 
 let renderForecastResults = (forecast) => {
-  let forecastEl = document.getElementById("forecast");
-  forecastEl.innerHTML = "";
+  let forecastEl = $("#forecast");
+  forecastEl.html("");
   for (let i = 0; i < 5; i++) {
-    //all of this was painful. There has to be a better way.
     let dailyObj = {};
     dailyObj.date = forecast[i].date;
     dailyObj.tempVal = forecast[i].tempVal;
@@ -185,30 +184,32 @@ let renderForecastResults = (forecast) => {
     dailyObj.windspeedVal = forecast[i].windspeedVal;
     dailyObj.iconVal = forecast[i].iconVal;
     console.log(dailyObj);
-    let createCard = document.createElement("div");
-    createCard.setAttribute("class", "card card-body");
-    createCard.style.display = "flex";
+    let createCard = $("<div>");
+    createCard.addClass("card card-body");
+    createCard.css("display", "flex");
     forecastEl.append(createCard);
-    let createTitle = document.createElement("h5");
-    createTitle.setAttribute("class", "card-title");
+    let createTitle = $("<h5>");
+    createTitle.addClass("card-title");
     createCard.append(createTitle);
-    let createSubtitle = document.createElement("h6");
-    createSubtitle.setAttribute("class", "card-subtitle mb-2");
+    let createSubtitle = $("<h6>");
+    createSubtitle.addClass("card-subtitle mb-2");
     createCard.append(createSubtitle);
-    let createPara1 = document.createElement("p");
-    createPara1.setAttribute("id", "dailyTemp");
+    let createPara1 = $("<p>");
+    createPara1.attr("id", "dailyTemp");
     createCard.append(createPara1);
-    let createPara2 = document.createElement("p");
-    createPara2.setAttribute("id", "dailyWind");
+    let createPara2 = $("<p>");
+    createPara2.attr("id", "dailyWind");
     createCard.append(createPara2);
-    let createPara3 = document.createElement("p");
-    createPara3.setAttribute("id", "dailyHumidity");
+    let createPara3 = $("<p>");
+    createPara3.attr("id", "dailyHumidity");
     createCard.append(createPara3);
-    createTitle.textContent = dailyObj.date;
-    createSubtitle.innerHTML = `<img src='http://openweathermap.org/img/wn/${dailyObj.iconVal}@2x.png' />`;
-    createPara1.textContent = `Temp: ${dailyObj.tempVal}`;
-    createPara2.textContent = `Wind: ${dailyObj.windspeedVal}`;
-    createPara3.textContent = `Humidity: ${dailyObj.humidityVal}`;
+    createTitle.text(dailyObj.date);
+    createSubtitle.html(
+      `<img src='http://openweathermap.org/img/wn/${dailyObj.iconVal}@2x.png' />`
+    );
+    createPara1.text(`Temp: ${dailyObj.tempVal}`);
+    createPara2.text(`Wind: ${dailyObj.windspeedVal}`);
+    createPara3.text(`Humidity: ${dailyObj.humidityVal}`);
   }
 };
 eventHandler();
